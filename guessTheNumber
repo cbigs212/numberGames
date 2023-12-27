@@ -1,0 +1,65 @@
+import java.util.Scanner; // imports the scanner for use of user input
+/**
+ * Writes a program that prompts the user to enter a series of numbers between 
+ * 1-500 (inclusive). The program keeps accepting numbers until the user enters 
+ * a value outside of the specified range. Once the user enters a value outside 
+ * of 1-500, the program displays how many terms were entered, 
+ * their minimum value, their average value, as well as a count for how 
+ * many of the numbers are even numbers.
+ *
+ * @author (Carly Bigelow)
+ * @version (20 October 2023)
+ */
+public class question2
+{
+    public static void main (String[] args)
+    {
+        Scanner scan = new Scanner (System.in); // setting up the scanner
+        
+        // directions for the user - they will enter a number outside of the range when finished
+        // this will cause the parameters of the code that collects the data to not be true so the code finishes
+        System.out.println ("To end the program, simply enter a value that is outside of the given range"); 
+        
+        // defining variables
+        int count = 0; // will record how many numbers the user inputs
+        int value = 1; // will be the integer the user enters each time
+        int sum = 0; // will be the sum of all the values entered (used for calculating average)
+        int evenCount = 0; // will be used to calculate how many even numbers are entered
+        int minValue = 500; // will be used to calculate the lowest number entered
+        
+        while (value >= 1 && value <= 500) // using an AND boolean operator to create a range within 1 and 500, inclusive
+        {
+            System.out.println ("Enter an integer between 1 and 500:"); // asking the user
+            value = scan.nextInt(); // allows the user to enter any number of integers until finished
+            if (value >= 1 && value <= 500) // if the value entered is still on or between 1 and 500
+            // we needed to make another if statement or else the code would add to the data even if the entered number is not within range
+            {
+                count++; // the count of valid numbers entered increases by 1
+                sum += value; // the value entered is added to the rest of the values entered to create a sum
+                if (value % 2 == 0) // if the value gives a remainder of 0 when divided by 2, it is even
+                {
+                    evenCount++; // so, we add 1 to the "even count" of integers entered
+                }
+                if (value <= minValue) // "if the value entered is smaller than the original min value" (500)
+                {
+                    minValue = value; // the min value is changed to that lower value, so each number entered will be compared to the lowest value entered
+                    // if this statement is not true, the minValue int stays the same
+                }
+            }
+        }
+        
+        if (count == 0) // for when the user does not enter any valid numbers
+        {
+            System.out.println ("You did not enter any numbers within the range!");
+            System.out.println ("No results to report");
+        }
+        else // when the user is finished entering values
+        {
+            System.out.println ("Results:");
+            System.out.println ("You entered " + (count) + " numbers."); // prints number of values entered
+            System.out.println ("The minimum value you entered was " + (minValue)); // prints smallest value entered
+            System.out.println ("You entered " + evenCount + " even numbers."); // prints # of even values entered
+            System.out.println ("The average of the numbers is " + ((double)sum / count)); // prints the average of the values entered
+        }
+    }
+}

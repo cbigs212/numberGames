@@ -1,0 +1,74 @@
+import java.util.Scanner; // importing the scanner that allows for user input
+
+/**
+ * The program has the user guess a secret number between 20-700, 
+ * inclusive. The computer randomly generates the secret number and 
+ * allows the user to continually input numbers until they correctly guess 
+ * the secret number
+ * 
+ * @author (Carly Bigelow)
+ * @version (20 October 2023)
+ */
+public class question3
+{
+    public static void main(String[] args)
+    {
+        Scanner scan = new Scanner (System.in); // a line of code that allows for user input
+        
+        // directions for the user
+        System.out.println ("I am thinking of a number between 20 and 700.");
+        System.out.println ("See if you can guess the number!");
+        System.out.println ("If you would like to give up, enter 0"); // 0 is used to stop the code from running
+        System.out.println ("Enter your guess:");
+        
+        int guess = 1; // defining the number the user continually guesses (not 0 because while loop needs to begin)
+        double randNum = Math.random(); // this calls the math class and returns a random double between 0 inclusive and 1 exclusive
+        double secretNumber = ((randNum * 680) + 20); // manipulates the random number to be within the specified range [20, 700]
+        int realSecNum = (int)secretNumber; // casting the secret number as a newly defined integer so user can guess integers and not decmials
+        
+        while (guess != 0) // 0 is used to stop the code from running
+        {
+            guess = scan.nextInt(); // asking the user to enter their guess
+            if (guess <= 700 && guess >= 20) // the users guess must be on or within these parameters to be valid
+            {
+                if (guess == realSecNum) // they have guessed the number
+                {
+                    System.out.println ("You guessed it! Well done.");
+                    guess = 0; // this sets the value to 0 so the while loop stops since the user succesfully completed the game
+                }
+                
+                else if ((Math.abs(guess - realSecNum)) <= 10) // guess is within 10 of the number
+                {
+                    System.out.println ("On fire! try again.");
+                }
+                
+                else if ((Math.abs(guess - realSecNum)) <= 50) // guess is within 50 of the number
+                {
+                    System.out.println ("Getting hotter! try again.");
+                }
+                
+                else if ((Math.abs(guess - realSecNum)) <= 100) // guess is within 100 of the number
+                {
+                    System.out.println ("Getting warmer! try again.");
+                }
+                
+                else // guess is over 100 away from the number
+                {
+                    System.out.println ("Not close! try again.");
+                }
+            }
+            
+            else if (guess != 0)// the guess in not within the valid range of numbers
+            {
+                System.out.println ("That guess is not a possible secret number! try again.");
+            }
+            
+            else // this means the user entered 0 and gave up on the game
+            {
+                System.out.println("You have entered 0, so the program will end.");
+                System.out.println("Thank you for playing! You will get it next time.");
+                System.out.println("The secret number was: " + realSecNum); // telling them the answer they were not able to guess
+            }
+        } 
+    }
+}
